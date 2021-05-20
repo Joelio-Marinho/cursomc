@@ -1,6 +1,10 @@
 package com.curso.cursomc.controller;
 
 import com.curso.cursomc.model.Categoria;
+import com.curso.cursomc.services.CategoriaService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,15 +16,13 @@ import java.util.List;
 @RequestMapping("categorias")
 public class CategoriaController {
 
-    @RequestMapping( method = RequestMethod.GET)
-    public List<Categoria> lista(){
+    @Autowired
+    private CategoriaService service;
 
-        Categoria cat1 = new Categoria(1, "informatica");
-        Categoria cat2 = new Categoria(2,"escritorio");
-        List<Categoria> list = new ArrayList<>();
+    @RequestMapping( value="/{id}" ,method = RequestMethod.GET)
+    public ResponseEntity<?> find(@PathVariable Integer id){
+        Categoria obj= service.buscar(id);
+        return ResponseEntity.ok().body(obj);
 
-        list.add(cat1);
-        list.add(cat2);
-        return list;
     }
 }
