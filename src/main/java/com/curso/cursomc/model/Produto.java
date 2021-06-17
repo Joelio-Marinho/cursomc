@@ -1,5 +1,8 @@
 package com.curso.cursomc.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -18,6 +21,7 @@ public class Produto implements Serializable {
 
     private Double preco;
 
+    @JsonBackReference
     @ManyToMany
     @JoinTable(name = "PRODUTO_CATEGORIA", joinColumns = @JoinColumn(name= "produto_id"),
             inverseJoinColumns = @JoinColumn(name="categoria_id"))
